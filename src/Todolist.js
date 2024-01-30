@@ -6,11 +6,20 @@ function Todolist() {
 
   function addActivity() {
     setlistData(prevListData => {
-      const updatedList = [...prevListData, activity];
+      const updatedList = [...listData, activity];
       console.log(updatedList);
       setActivity('');
       return updatedList;
     });
+  }
+  function removeActivity(i){
+const updatedlistData =listData.filter((elem, id)=>{
+    return i!==id;
+})
+setlistData(updatedlistData);
+  }
+  function Removeall(){
+    setlistData([])
   }
 
   return (
@@ -25,12 +34,20 @@ function Todolist() {
         />
         <button onClick={addActivity}>add</button>
         <p className='list-heading'>Here is your List :{")"}</p>
+        {listData.length > 0 && listData.map((data, i) => (
+  <React.Fragment key={i}>
+    <p>
+      <div className='listData'>{data}</div>
+    <div className='btn-position'><button onClick={()=>removeActivity
+   (i)}>remove(-)</button></div>
+    </p>
+  </React.Fragment>
+))}
+{listData.length>=1 &&
+<button onClick={Removeall}>Remove all</button>}
       </div>
     </>
   );
 }
 
 export default Todolist;
-
-
-
